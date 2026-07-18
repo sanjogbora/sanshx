@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SanshX — AI UGC Video Studio for Beauty & Personal Care</title>
+<meta name="description" content="The specialist AI UGC studio beauty and personal-care brands trust. Researched, ready-to-run video — five ads in five days, in Hinglish or your regional language." />
+<script>document.documentElement.className+=" js";</script>
+
+<!--
+     SANSHX — static one-page site
+     Host on Cloudflare Pages / Netlify, attach SanshX.com.
+
+     THINGS TO SWAP IN (search the file for each marker):
+     1. Booking link   : "BOOKING_URL" in the script at the bottom.
+     2. Videos         : put MP4s in a "clips/" folder named as shown in
+                         each figure (clips/hero-1.mp4, clips/hook-test.mp4 ...).
+                         They autoplay muted + loop, and unmute on hover.
+     3. Client logos   : "LOGO SLOT" (trust marquee).
+     4. Ad-spend figure: "AD SPEND" if it changes.
+     Fonts: Sirkel (serif, self-hosted from this folder) for titles only;
+     Manrope (sans) for everything else.
+
+     INDIA vs GLOBAL: text between the inline IN and slash-IN comment
+     markers is India-specific (Hinglish / regional). Swap for global.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- title font (self-hosted) ---------- */
+  @font-face{font-family:'Sirkel';src:url('sirkel.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+
+  :root{
+    --bg:#0C0E0F;
+    --bg-2:#13181A;
+    --bg-3:#181E20;
+    --ink:#ECE8E0;
+    --ink-dim:#9AA29E;
+    --ink-faint:#616966;
+    --accent:#61FAFF;
+    --accent-2:#8CFDFF;
+    --line:rgba(236,232,224,.10);
+    --line-2:rgba(236,232,224,.055);
+    --serif:'Sirkel',Georgia,'Times New Roman',serif;
+    --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --maxw:1220px;
+    --pad:clamp(20px,5vw,68px);
+    --r:16px;
+    --panel-bg:var(--bg);--panel-ink:var(--ink);--panel-dim:var(--ink-dim);
+    --panel-faint:var(--ink-faint);--panel-accent:var(--accent);
+    --panel-line:var(--line);--panel-surface:var(--bg-2);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.6;letter-spacing:-.003em;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(236,232,224,.038) 1px,transparent 1px);background-size:28px 28px}
+  main,header,footer{position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+  img,video{display:block;max-width:100%}
+  h1,h2,h3,figure{margin:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  /* ---------- type devices ---------- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.62em;line-height:1;
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--panel-accent);
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;background:var(--panel-accent);transform:rotate(45deg);flex:none}
+  .display{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6.3vw,78px);line-height:1.02;letter-spacing:-.028em}
+  h2.display{font-size:clamp(30px,4.7vw,54px)}
+  /* accent = same serif, brand-cyan colour only (no font/weight mixing) */
+  .accent{color:var(--panel-accent);font-family:inherit;font-weight:inherit;font-style:inherit;font-size:inherit;letter-spacing:inherit}
+  .lede{color:var(--panel-dim);font-size:clamp(16px,1.5vw,18.5px);max-width:52ch;line-height:1.6}
+
+  /* ---------- buttons / links (sans, no arrows) ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    padding:15px 28px;border-radius:999px;background:var(--accent);color:#052421;border:1px solid var(--accent);cursor:pointer;
+    transition:transform .25s,background .25s,box-shadow .25s;white-space:nowrap;
+  }
+  .btn:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 12px 34px -12px rgba(97,250,255,.55)}
+  .link-under{
+    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--panel-ink);
+    border-bottom:1px solid var(--panel-line);padding-bottom:4px;transition:color .2s,border-color .2s;
+  }
+  .link-under:hover{color:var(--panel-accent);border-color:var(--panel-accent)}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(12,14,15,.7);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  header.scrolled{border-color:var(--line);background:rgba(12,14,15,.9)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center}
+  .brand-logo{height:30px;width:auto;display:block}
+  footer .brand-logo{height:26px}
+  .nav-links{display:flex;align-items:center;gap:38px}
+  .nav-links a:not(.btn){font-size:13px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-dim);transition:color .2s}
+  .nav-links a:not(.btn):hover{color:var(--ink)}
+  .nav-toggle{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
+
+  /* ---------- section frame + themes ---------- */
+  .section{padding:clamp(72px,10vw,132px) 0;border-top:1px solid var(--line-2);background:var(--panel-bg);color:var(--panel-ink)}
+  .panel--light{--panel-bg:#F1ECE3;--panel-ink:#141210;--panel-dim:#57524A;--panel-faint:#8A8478;--panel-accent:#0A6A75;--panel-line:rgba(20,18,16,.14);--panel-surface:#E7E0D3;border-top:0}
+  .panel--light.section{background:var(--panel-bg)}
+  .section-head{max-width:60ch}
+  .section-head .display{margin-top:20px}
+  .section-head .lede{margin-top:22px}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(48px,7vw,92px);padding-bottom:clamp(40px,5vw,60px)}
+  .hero .display{max-width:15ch}
+  .hero .lede{margin-top:26px;font-size:clamp(17px,1.65vw,20px);max-width:50ch}
+  .hero-cta{display:flex;align-items:center;gap:28px;margin-top:36px;flex-wrap:wrap}
+  .hero-clips{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+  .hero-clips .clip{aspect-ratio:9/16}
+  .hero-clips .clip:nth-child(2){z-index:2} /* centre sits on top so the others emerge from behind it */
+  /* emerge-from-centre entrance: left + right start stacked behind the centre, then spread out */
+  .js .hero-clips .clip{opacity:0;transition:transform 1.05s cubic-bezier(.16,1,.3,1),opacity .7s ease}
+  .js .hero-clips .clip:nth-child(1){transform:translateX(calc(100% + 18px)) scale(.9)}
+  .js .hero-clips .clip:nth-child(3){transform:translateX(calc(-100% - 18px)) scale(.9)}
+  .js .hero-clips .clip:nth-child(2){transform:scale(.97)}
+  .js .hero-clips.emerged .clip{opacity:1}
+  .js .hero-clips.emerged .clip:nth-child(1),
+  .js .hero-clips.emerged .clip:nth-child(2),
+  .js .hero-clips.emerged .clip:nth-child(3){transform:none}
+  .js .hero-clips.emerged .clip:nth-child(1),
+  .js .hero-clips.emerged .clip:nth-child(3){transition-delay:.12s}
+
+  /* ---------- video wells (flat, no gradient) ---------- */
+  .clip{position:relative;border-radius:var(--r);overflow:hidden;background:var(--bg-2);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s}
+  .clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-2)}
+  .clip__file{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);pointer-events:none}
+  .clip.has-video .clip__file{display:none}
+  .clip .tag{
+    position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+    background:rgba(9,12,13,.74);backdrop-filter:blur(6px);border:1px solid var(--line);padding:7px 12px;border-radius:9px;
+  }
+  .clip .tag::before{content:"";width:0;height:12px;border-left:2px solid var(--accent)}
+
+  /* ---------- trust marquee ---------- */
+  .trust{padding:34px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--bg)}
+  .trust__label{text-align:center;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+  .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .marquee__track{display:flex;gap:22px;width:max-content;animation:scroll 34s linear infinite}
+  .marquee:hover .marquee__track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(calc(-50% - 11px))}}
+  /* LOGO SLOT — replace each .logo with <img src="logos/brand.svg" alt="Brand"> (monochrome/light). Edit BOTH halves. */
+  .logo{flex:none;width:168px;height:64px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--ink-faint);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:var(--bg-2)}
+
+  /* ---------- statement (light, serif + sans emphasis, word-lit) ---------- */
+  .statement .big{font-family:var(--serif);font-weight:400;font-size:clamp(31px,5.3vw,64px);line-height:1.14;letter-spacing:-.02em;max-width:21ch;margin-top:30px}
+  .statement .word{display:inline-block;opacity:.16;transition:opacity .5s ease}
+  .statement .word.em{color:var(--panel-accent)}
+  .statement .word.lit{opacity:1}
+
+  /* ---------- problem cards ---------- */
+  .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  .pcard{background:var(--panel-surface);border:1px solid var(--panel-line);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:14px;min-height:220px;transition:border-color .3s,transform .3s}
+  .pcard:hover{border-color:rgba(97,250,255,.4);transform:translateY(-3px)}
+  .pcard__icon{width:38px;height:38px;color:var(--panel-accent)}
+  .pcard__icon svg{width:100%;height:100%}
+  .pcard h3{font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:-.01em;margin-top:4px}
+  .pcard .pain{margin:0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--panel-accent);display:flex;align-items:center;gap:8px}
+  .pcard .pain::before{content:"\2715";font-size:12px}
+  .pcard p{margin:0;color:var(--panel-dim);font-size:15.5px;line-height:1.55}
+  /* problem headline stays brand cyan; only the CARDS carry the red pain accent */
+  #problem .pcard{--panel-accent:#FF6B5E}
+  #problem .pcard:hover{border-color:rgba(255,107,94,.45)}
+
+  /* ---------- comparison table ---------- */
+  .table-scroll{margin-top:50px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r);border:1px solid var(--line)}
+  table.cmp{width:100%;border-collapse:collapse;min-width:720px;background:var(--bg-2);font-family:var(--sans)}
+  .cmp th,.cmp td{text-align:left;padding:22px 24px;vertical-align:top;border-bottom:1px solid var(--line-2)}
+  .cmp thead th{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);background:var(--bg-3)}
+  .cmp tbody tr:last-child td{border-bottom:0}
+  .cmp .opt{color:var(--ink);font-weight:700;font-size:16px;width:24%}
+  .cmp .cost{color:var(--ink-dim);font-size:15px;width:38%;line-height:1.5}
+  .cmp .sanshx{color:var(--ink);font-size:15px;line-height:1.5}
+  .cmp th.col-sanshx,.cmp td.sanshx{background:linear-gradient(180deg,rgba(97,250,255,.09),rgba(97,250,255,.04));border-left:1px solid rgba(97,250,255,.25)}
+  .cmp th.col-sanshx{color:var(--accent)}
+  .cmp td.sanshx{position:relative;padding-left:52px}
+  .cmp td.sanshx::before{
+    content:"";position:absolute;left:22px;top:23px;width:18px;height:18px;background-repeat:no-repeat;background-size:contain;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2361FAFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- portfolio grid ---------- */
+  #work .wrap{max-width:1520px}
+  .work-grid{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);column-gap:6px;row-gap:12px}
+  .work-grid .clip{aspect-ratio:9/16}
+  .work-grid .clip:hover{transform:translateY(-4px);border-color:rgba(97,250,255,.45);box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+  .clip.is-active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+
+  /* ---------- process ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid var(--panel-line)}
+  .step{position:relative;padding:34px 30px;display:flex;flex-direction:column;gap:12px;border-right:1px solid var(--panel-line)}
+  .step:first-child{padding-left:0}
+  .step:last-child{border-right:0;padding-right:0}
+  .step .num{font-family:var(--serif);font-size:clamp(40px,5vw,64px);line-height:1;color:var(--panel-accent);letter-spacing:-.03em}
+  .step .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--panel-faint);margin-top:4px}
+  .step h3{font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-.01em;margin-top:2px}
+  .step p{margin:0;color:var(--panel-dim);font-size:15.5px;line-height:1.55}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  .stat{padding:32px 26px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2)}
+  .stat .fig{font-family:var(--serif);font-size:clamp(40px,4.4vw,58px);line-height:1;letter-spacing:-.04em}
+  .stat .cap{margin-top:16px;color:var(--ink-dim);font-size:14.5px;line-height:1.5}
+
+  /* ---------- pull quote ---------- */
+  .pull{max-width:940px;margin:0 auto;text-align:center}
+  .pull .q{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.4vw,52px);line-height:1.18;letter-spacing:-.02em;max-width:19ch;margin:0 auto}
+  .pull .by{margin-top:26px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--panel-dim)}
+
+  /* ---------- bottom CTA ---------- */
+  .cta{text-align:center;padding:clamp(78px,12vw,148px) 0;border-top:1px solid var(--line-2);background:radial-gradient(60% 100% at 50% 0%,rgba(97,250,255,.1),transparent 70%)}
+  .cta .display{max-width:17ch;margin:0 auto}
+  .cta .lede{margin:24px auto 36px;text-align:center}
+  .cta .btn{font-size:14px;padding:17px 36px}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:52px 0}
+  .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
+  .foot-brand{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:34ch}
+  .foot .tagline{margin:0;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);line-height:1.7}
+  .foot-links{display:flex;flex-direction:column;gap:11px}
+  .foot-links a{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);transition:color .2s}
+  .foot-links a:hover{color:var(--accent)}
+  .foot .contact{margin:0;color:var(--ink-dim);font-size:14px;line-height:1.9}
+  .foot .contact a:hover{color:var(--accent)}
+
+  /* ---------- reveal ---------- */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.is-in{opacity:1;transform:none}
+  .js .stagger>*{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .stagger.is-in>*{opacity:1;transform:none}
+  .stagger.is-in>*:nth-child(2){transition-delay:.08s}
+  .stagger.is-in>*:nth-child(3){transition-delay:.16s}
+  .stagger.is-in>*:nth-child(4){transition-delay:.24s}
+  .stagger.is-in>*:nth-child(5){transition-delay:.32s}
+  .stagger.is-in>*:nth-child(6){transition-delay:.4s}
+  .stagger.is-in>*:nth-child(7){transition-delay:.48s}
+  .stagger.is-in>*:nth-child(8){transition-delay:.56s}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .nav-links{position:fixed;inset:72px 0 auto 0;flex-direction:column;gap:0;background:rgba(12,14,15,.98);border-bottom:1px solid var(--line);padding:8px 0 20px;transform:translateY(-130%);transition:transform .35s ease}
+    .nav-links.open{transform:none}
+    .nav-links a:not(.btn){padding:16px var(--pad);width:100%;font-size:15px}
+    .nav-links .btn{margin:14px var(--pad) 0}
+    .nav-toggle{display:block}
+    .cards-3{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr;border-top:0}
+    .step{border-right:0;border-top:1px solid var(--panel-line);padding:28px 0}
+    .step:first-child{padding:28px 0}
+    .work-grid{grid-template-columns:repeat(2,1fr)}
+    #work .wrap{max-width:var(--maxw)}
+    /* skip the emerge spread on small screens — just show the clips */
+    .js .hero-clips .clip:nth-child(1),
+    .js .hero-clips .clip:nth-child(2),
+    .js .hero-clips .clip:nth-child(3){opacity:1;transform:none;transition:opacity .5s ease}
+  }
+  /* comparison table → stacked cards on phone (no horizontal scroll) */
+  @media (max-width:700px){
+    .table-scroll{overflow:visible;border:0;border-radius:0}
+    table.cmp{min-width:0;background:transparent;display:block}
+    .cmp thead{display:none}
+    .cmp tbody{display:block}
+    .cmp tr{display:block;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:12px}
+    .cmp td{display:block;border:0;padding:0}
+    .cmp td.opt,.cmp td.cost,.cmp td.sanshx{width:auto}
+    .cmp td.opt{font-size:17px;font-weight:700;margin-bottom:14px}
+    .cmp td.cost{color:var(--ink-dim);font-size:14.5px;margin-bottom:14px}
+    .cmp td.cost::before{content:attr(data-label);display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+    .cmp td.sanshx{position:relative;font-size:14.5px;padding:13px 15px;border-left:2px solid var(--accent);border-radius:0 10px 10px 0;background:linear-gradient(90deg,rgba(97,250,255,.09),rgba(97,250,255,.02))}
+    .cmp td.sanshx::before{content:"With SanshX";position:static;display:block;width:auto;height:auto;background:none;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 6px 0}
+  }
+  @media (max-width:600px){
+    body{font-size:16px}
+    /* hero clips → swipeable, auto-scrolling carousel; bigger, tighter */
+    .hero-clips{position:relative;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:clamp(30px,8vw,48px) calc(var(--pad)*-1) 0;padding:0 var(--pad) 6px;scrollbar-width:none;-ms-overflow-style:none}
+    .hero-clips::-webkit-scrollbar{display:none}
+    .hero-clips .clip{flex:0 0 66%;scroll-snap-align:center;display:block}
+    .js .hero-clips .clip:nth-child(1),.js .hero-clips .clip:nth-child(2),.js .hero-clips .clip:nth-child(3){opacity:1;transform:none;transition:none}
+    /* bigger, tighter work tiles */
+    #work{--pad:12px}
+    .work-grid{column-gap:4px;row-gap:14px;margin-top:24px}
+    /* keep the stat figure on one line */
+    .stat{padding:26px 20px}
+    .stat .fig{font-size:32px;white-space:nowrap}
+    /* footer fully stacked */
+    .foot{flex-direction:column;align-items:flex-start;gap:30px}
+    .cta .lede{padding:0 8px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    html{scroll-behavior:auto}
+    .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none}
+    .js .hero-clips .clip{opacity:1!important;transform:none!important;transition:none}
+    .statement .word{opacity:1!important}
+    .marquee__track{animation:none!important}
+    .btn:hover,.clip:hover,.pcard:hover{transform:none}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="SanshX home">
+      <img src="sanshx-logo.svg" alt="SanshX" class="brand-logo" />
+    </a>
+    <nav class="nav-links" id="menu">
+      <a href="#approach">Approach</a>
+      <a href="#compare">Why us</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#book" class="btn" data-book>Book a Call</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero wrap">
+  <p class="eyebrow reveal">AI UGC Video Studio · Beauty &amp; Personal Care</p>
+  <h1 class="display reveal" style="margin-top:24px">Ads that keep up with how fast your creative <span class="accent">burns out</span>.</h1>
+  <p class="lede reveal">The specialist studio beauty brands trust for research-backed UGC that's built to convert — five ads in five days<!--IN-->, in Hinglish or your regional language<!--/IN-->.</p>
+  <div class="hero-cta reveal">
+    <a href="#book" class="btn" data-book>Book a Call</a>
+    <a href="#work" class="link-under">See the work</a>
+  </div>
+
+  <!-- Hero clips: the top three (1/2/3), aligned; left+right emerge from the centre. -->
+  <div class="hero-clips" id="heroClips">
+    <figure class="clip" data-unmute><video src="clips/1.mp4" autoplay muted loop playsinline preload="metadata"></video><span class="clip__file">clips/1.mp4</span></figure>
+    <figure class="clip" data-unmute><video src="clips/2.mp4" autoplay muted loop playsinline preload="metadata"></video><span class="clip__file">clips/2.mp4</span></figure>
+    <figure class="clip" data-unmute><video src="clips/3.mp4" autoplay muted loop playsinline preload="metadata"></video><span class="clip__file">clips/3.mp4</span></figure>
+  </div>
+</section>
+
+<!-- ===================== TRUST LABEL ===================== -->
+<section class="trust" aria-label="Brands we work with">
+  <div class="wrap"><p class="trust__label">Trusted by beauty &amp; personal-care brands</p></div>
+  <!-- Logo marquee hidden for now. To bring it back, restore a
+       <div class="marquee"><div class="marquee__track">…logos…</div></div> here. -->
+</section>
+
+<!-- ===================== APPROACH STATEMENT (light) ===================== -->
+<section class="section panel--light statement" id="approach">
+  <div class="wrap">
+    <span class="eyebrow">How we think</span>
+    <p class="big">
+      <span class="word">We</span> <span class="word">don't</span> <span class="word">guess</span> <span class="word">what</span> <span class="word">to</span> <span class="word">make</span> <span class="word">next.</span>
+      <span class="word">We</span> <span class="word em">study</span> <span class="word em">the</span> <span class="word em">ads</span> <span class="word em">already</span> <span class="word em">winning</span> <span class="word">in</span> <span class="word">your</span> <span class="word">category,</span>
+      <span class="word">then</span> <span class="word">build</span> <span class="word">your</span> <span class="word">next</span> <span class="word">batch</span> <span class="word">around</span> <span class="word em">what</span> <span class="word em">actually</span> <span class="word em">works.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== PROBLEM ===================== -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The problem</span>
+      <h2 class="display">Beauty creative burns out in weeks — <span class="accent">faster than almost any category</span>.</h2>
+      <p class="lede">Keeping paid social efficient means a constant stream of fresh video — and every usual way to get it comes with a catch that quietly drives your CPA up.</p>
+    </div>
+    <div class="cards-3 stagger">
+      <div class="pcard">
+        <span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <h3>Human creators</h3>
+        <p class="pain">Too slow to keep up</p>
+        <p>Weeks per batch, quality that swings shoot to shoot, and coordination that never ends.</p>
+      </div>
+      <div class="pcard">
+        <span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>
+        <h3>Retainer agencies</h3>
+        <p class="pain">Built for someone else</p>
+        <p>Big-brand calendars, generalist teams, and rarely true UGC specialists.</p>
+      </div>
+      <div class="pcard">
+        <span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
+        <h3>Global AI tools</h3>
+        <p class="pain">Foreign and hands-off</p>
+        <p>Western faces, English scripts, and the strategy still lands back on you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY SANSHX / COMPARISON ===================== -->
+<section class="section" id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why SanshX</span>
+      <h2 class="display">The specialists, <span class="accent">not another option</span>.</h2>
+      <p class="lede">We do one thing: research-driven AI UGC for beauty and personal care. It's all we do, and we've done it long enough to do it better than anyone.</p>
+    </div>
+    <div class="table-scroll reveal">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th scope="col">The usual options</th>
+            <th scope="col">What that means for you</th>
+            <th scope="col" class="col-sanshx">With SanshX</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="opt">Human UGC creators</td>
+            <td class="cost" data-label="The usual way">Weeks of back-and-forth, quality that varies shoot to shoot</td>
+            <td class="sanshx">Five researched ads in five days, consistent, zero coordination</td>
+          </tr>
+          <tr>
+            <td class="opt">Retainer agency</td>
+            <td class="cost" data-label="The usual way">Heavy monthly retainer, generalists, slow to move</td>
+            <td class="sanshx">A focused specialist team, faster sprints, no retainer bloat</td>
+          </tr>
+          <tr>
+            <td class="opt">Global AI tools</td>
+            <td class="cost" data-label="The usual way">Western faces, English scripts — you still do the strategy</td>
+            <td class="sanshx"><!--IN-->Indian faces, Hinglish or regional,<!--/IN--> full research-to-delivery, handled</td>
+          </tr>
+          <tr>
+            <td class="opt">Guesswork between batches</td>
+            <td class="cost" data-label="The usual way">You guess what to make next and hope it lands</td>
+            <td class="sanshx">Every batch starts from a competitor ad breakdown</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WORK ===================== -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The work</span>
+      <h2 class="display">Every ad starts from what's <span class="accent">already working</span>.</h2>
+      <p class="lede">Real AI ads, running live for brands right now — indistinguishable from human content, and built to move ROAS and CPP.</p>
+    </div>
+    <!-- All work clips autoplay muted + loop while on screen, and unmute on hover. -->
+    <div class="work-grid stagger">
+      <figure class="clip" data-unmute><video src="clips/1NjRVV2wh7ws828BOI6ZaL4w2Y.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 01</span></figure>
+      <figure class="clip" data-unmute><video src="clips/DbU4xuQpa8s94kO6AxEytkgk0.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 02</span></figure>
+      <figure class="clip" data-unmute><video src="clips/ILItUUqDi5HMdoHLl9Vs6bGQcI.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 03</span></figure>
+      <figure class="clip" data-unmute><video src="clips/Inb1CfYLHN1IQX3BNddDzdf0ys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 04</span></figure>
+      <figure class="clip" data-unmute><video src="clips/IpciZB39yORbEgCn4pGYE0XhSs.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 05</span></figure>
+      <figure class="clip" data-unmute><video src="clips/KZ0Y9R38vfkHqzRNcVqTPLNerKE.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 06</span></figure>
+      <figure class="clip" data-unmute><video src="clips/MmFuUsg418jmazjMvoWkBc5SZU.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 07</span></figure>
+      <figure class="clip" data-unmute><video src="clips/W19mLxoPsxbykvWUxISIcS7yk.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 08</span></figure>
+      <figure class="clip" data-unmute><video src="clips/XpCsQgVUsjVHr5z1zJ66qxdILjY.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 09</span></figure>
+      <figure class="clip" data-unmute><video src="clips/XuK9QPVwoQHFVbXGSkbIL2aJv18.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 10</span></figure>
+      <figure class="clip" data-unmute><video src="clips/aemc9q20mwqsloE4hcM4j1cTys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 11</span></figure>
+      <figure class="clip" data-unmute><video src="clips/hdnqpaYYgXHjVXX3yGe9OWeuHc.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 12</span></figure>
+      <figure class="clip" data-unmute><video src="clips/tn6DDp8DcYCAQ1TqB0fn7CGMqFo.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 13</span></figure>
+      <figure class="clip" data-unmute><video src="clips/uAw9Va9wrFscx53WG2yES5nts.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 14</span></figure>
+      <figure class="clip" data-unmute><video src="clips/vVNnYnFPi6ueT0pguKLguhVwiQ.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 15</span></figure>
+      <figure class="clip" data-unmute><video src="clips/vWe2teKbQxQVXxUnJmdi2zXwZM.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 16</span></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESS (light) ===================== -->
+<section class="section panel--light" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="display">Research. Produce. Report. <span class="accent">Then again.</span></h2>
+    </div>
+    <div class="steps stagger">
+      <div class="step">
+        <span class="num">01</span>
+        <span class="kicker">Research</span>
+        <h3>We study what's working</h3>
+        <p>We pull your competitors' live ads from the Meta Ad Library and break down the hooks, angles and formats that are actually running.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <span class="kicker">Produce</span>
+        <h3>We write and build the batch</h3>
+        <p>Scripts grounded in that research, produced into finished videos<!--IN--> in Hinglish or your regional language<!--/IN-->, ready to post.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <span class="kicker">Report</span>
+        <h3>We measure and sharpen</h3>
+        <p>We track each batch against your existing ads and feed what we learn straight into the next one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The outcomes</span>
+      <h2 class="display">We build ads to <span class="accent">convert</span>, not to entertain.</h2>
+    </div>
+    <div class="stats stagger">
+      <!-- CPA — representative range; confirm it's defensible before going live. -->
+      <div class="stat"><div class="fig">30–40%</div><div class="cap">Lower CPA once our creatives are live in your account.</div></div>
+      <div class="stat"><div class="fig"><span data-count="5">5</span> days</div><div class="cap">From brief to a finished batch, delivered.</div></div>
+      <div class="stat"><div class="fig"><span data-count="5">5</span> ads</div><div class="cap">Every batch, built on real competitor research.</div></div>
+      <!-- AD SPEND — real figure supplied by the team. Update if it changes. -->
+      <div class="stat"><div class="fig">$<span data-count="300">300</span>k+</div><div class="cap">In ad spend already running on our creative.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PULL QUOTE (light) ===================== -->
+<section class="section panel--light">
+  <div class="wrap">
+    <div class="pull reveal">
+      <p class="q">We don't make ads to be watched. We make them to <span class="accent">convert</span>.</p>
+      <p class="by">The SanshX difference</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BOTTOM CTA ===================== -->
+<section class="cta" id="book">
+  <div class="wrap">
+    <h2 class="display reveal">Ready for ads that don't go stale in two weeks?</h2>
+    <p class="lede reveal">Tell us about your brand — we'll map your first batch.</p>
+    <a href="#book" class="btn reveal" data-book>Book a Call</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap foot">
+    <div class="foot-brand">
+      <img src="sanshx-logo.svg" alt="SanshX" class="brand-logo" />
+      <p class="tagline">The specialist AI UGC studio for beauty &amp; personal-care brands.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#approach">Approach</a>
+      <a href="#compare">Why us</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#book" data-book>Book a call</a>
+    </nav>
+    <p class="contact">
+      <a href="mailto:ansh@sanshx.com">ansh@sanshx.com</a><br>© 2026 SanshX
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* 1) BOOKING LINK — paste your calendar link (empty = scroll to CTA). */
+  const BOOKING_URL = "https://cal.com/anshgandhi/30min";
+  document.querySelectorAll("[data-book]").forEach(a => { if (BOOKING_URL){ a.href = BOOKING_URL; a.target="_blank"; a.rel="noopener"; }});
+
+  /* sticky nav border */
+  const header = document.getElementById("top");
+  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 12);
+  onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
+
+  /* mobile menu */
+  const toggle = document.getElementById("navToggle"), menu = document.getElementById("menu");
+  toggle.addEventListener("click", () => { const o = menu.classList.toggle("open"); toggle.setAttribute("aria-expanded", o?"true":"false"); });
+  menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }));
+
+  /* videos: hide filename label once loaded; desktop = hover to unmute, touch = tap to unmute */
+  const canHover = window.matchMedia("(hover:hover)").matches;
+  const muteOthers = (keep) => document.querySelectorAll(".clip[data-unmute]").forEach(f => {
+    if (f !== keep){ const ov = f.querySelector("video"); if (ov) ov.muted = true; f.classList.remove("is-active"); }
+  });
+  document.querySelectorAll(".clip video").forEach(v => {
+    const fig = v.closest(".clip");
+    const showLoaded = () => fig.classList.add("has-video");
+    v.addEventListener("loadeddata", showLoaded);
+    if (v.readyState >= 2) showLoaded();
+    if (!fig.hasAttribute("data-unmute")) return;
+    if (canHover){
+      fig.addEventListener("mouseenter", () => { muteOthers(fig); v.muted = false; v.play().catch(()=>{}); fig.classList.add("is-active"); });
+      fig.addEventListener("mouseleave", () => { v.muted = true; fig.classList.remove("is-active"); });
+    } else {
+      fig.addEventListener("click", () => {
+        const unmute = v.muted;      // currently muted → turn sound on
+        muteOthers(fig);
+        v.muted = !unmute;
+        fig.classList.toggle("is-active", unmute);
+        if (unmute) v.play().catch(()=>{});
+      });
+    }
+  });
+
+  /* only play clips while they're on screen — keeps 19 videos from decoding at once */
+  const vio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting){ v.play().catch(()=>{}); }
+      else { v.pause(); v.muted = true; const f = v.closest(".clip"); if (f) f.classList.remove("is-active"); }
+    });
+  }, {threshold:0.2});
+  document.querySelectorAll(".clip video").forEach(v => vio.observe(v));
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* hero clips emerge from the centre shortly after load */
+  const heroClips = document.getElementById("heroClips");
+  if (heroClips){ requestAnimationFrame(() => requestAnimationFrame(() => heroClips.classList.add("emerged"))); }
+
+  /* on phones the hero clips are a carousel — gently auto-advance until the user swipes */
+  if (heroClips){
+    const phone = window.matchMedia("(max-width:600px)");
+    const kids = heroClips.children;
+    let idx = 0, held = false;
+    heroClips.addEventListener("pointerdown", () => { held = true; }, {passive:true});
+    setInterval(() => {
+      if (held || !phone.matches || kids.length < 2) return;
+      idx = (idx + 1) % kids.length;
+      const el = kids[idx];
+      // scroll ONLY the carousel horizontally (never the page)
+      heroClips.scrollTo({ left: el.offsetLeft - (heroClips.clientWidth - el.clientWidth) / 2, behavior: "smooth" });
+    }, 3200);
+  }
+
+  /* scroll reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); }});
+  }, {threshold:0.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal,.stagger").forEach(el => io.observe(el));
+
+  /* statement: light words progressively on scroll */
+  const stmt = document.querySelector(".statement .big");
+  if (stmt && !reduce){
+    const words = stmt.querySelectorAll(".word");
+    const light = () => {
+      const r = stmt.getBoundingClientRect(), vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh*0.85 - r.top) / (vh*0.55)));
+      const n = Math.floor(p * words.length);
+      words.forEach((w,i) => w.classList.toggle("lit", i < n));
+    };
+    light(); window.addEventListener("scroll", light, {passive:true});
+  }
+
+  /* count-up */
+  if (!reduce){
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = parseFloat(el.dataset.count); let start = null; const dur = 950;
+        const tick = (t) => { if (start===null) start=t; const p = Math.min(1,(t-start)/dur); el.textContent = Math.round(p*target); if (p<1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick); cio.unobserve(el);
+      });
+    }, {threshold:0.6});
+    document.querySelectorAll("[data-count]").forEach(el => cio.observe(el));
+  }
+</script>
+</body>
+</html>

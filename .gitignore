@@ -1,0 +1,9 @@
+# Original (uncompressed) video backups — do NOT deploy these
+clips_original/
+
+# Internal strategy doc — not part of the website (remove this line to track it)
+sanshx-website-brief.md
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
