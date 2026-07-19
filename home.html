@@ -3,26 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SanshX — AI UGC Video Studio for Beauty & Personal Care</title>
-<meta name="description" content="The specialist AI UGC studio beauty and personal-care brands trust. Researched, ready-to-run video — five ads in five days, in Hinglish or your regional language." />
+<title>SanshX — AI UGC Video Studio for Apps &amp; Digital Products</title>
+<meta name="description" content="The specialist AI UGC studio behind scroll-native video for apps and digital products. Research-backed, built to convert — five ads in five days." />
 <script>document.documentElement.className+=" js";</script>
 
 <!--
-     SANSHX — static one-page site
-     Host on Cloudflare Pages / Netlify, attach SanshX.com.
+     SANSHX — global /home page (app & digital-product positioning)
+     Served at /home on Cloudflare Pages (this file is home.html).
+     Sister page: index.html (beauty / India edition).
 
      THINGS TO SWAP IN (search the file for each marker):
-     1. Booking link   : "BOOKING_URL" in the script at the bottom.
-     2. Videos         : put MP4s in a "clips/" folder named as shown in
-                         each figure (clips/hero-1.mp4, clips/hook-test.mp4 ...).
-                         They autoplay muted + loop, and unmute on hover.
-     3. Client logos   : "LOGO SLOT" (trust marquee).
-     4. Ad-spend figure: "AD SPEND" if it changes.
-     Fonts: Sirkel (serif, self-hosted from this folder) for titles only;
-     Manrope (sans) for everything else.
-
-     INDIA vs GLOBAL: text between the inline IN and slash-IN comment
-     markers is India-specific (Hinglish / regional). Swap for global.
+     1. Booking link : "BOOKING_URL" in the script at the bottom.
+     2. Videos       : MP4s in the shared clips/ folder (same as index.html).
+     3. Client logos : "LOGO WALL" — replace each .brandmark text wordmark with
+                       <img src="logos/brand.svg" alt="Brand"> when you have the assets.
+     4. Ad-spend fig : "AD SPEND" if it changes.
+     Fonts: Sirkel (serif, self-hosted) for titles only; Manrope (sans) for the rest.
+     No India/beauty-specific copy here — global only.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -76,11 +73,10 @@
   .eyebrow::before{content:"";width:6px;height:6px;background:var(--panel-accent);transform:rotate(45deg);flex:none}
   .display{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6.3vw,78px);line-height:1.02;letter-spacing:-.028em}
   h2.display{font-size:clamp(30px,4.7vw,54px)}
-  /* accent = same serif, brand-cyan colour only (no font/weight mixing) */
   .accent{color:var(--panel-accent);font-family:inherit;font-weight:inherit;font-style:inherit;font-size:inherit;letter-spacing:inherit}
   .lede{color:var(--panel-dim);font-size:clamp(16px,1.5vw,18.5px);max-width:52ch;line-height:1.6}
 
-  /* ---------- buttons / links (sans, no arrows) ---------- */
+  /* ---------- buttons / links ---------- */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;
     font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
@@ -115,14 +111,29 @@
   .section-head .lede{margin-top:22px}
 
   /* ---------- hero ---------- */
-  .hero{padding-top:clamp(48px,7vw,92px);padding-bottom:clamp(40px,5vw,60px)}
+  .hero{padding-top:clamp(56px,8vw,120px);padding-bottom:clamp(40px,5vw,64px);position:relative}
+  /* wypd-inspired aurora: a cyan glow with faint vertical light-streaks, faded into the dark */
+  .hero::before,.hero::after{content:"";position:absolute;left:50%;top:-80px;transform:translateX(-50%);width:100vw;height:840px;pointer-events:none;z-index:-1}
+  .hero::before{
+    background:
+      radial-gradient(52% 48% at 70% 8%,rgba(97,250,255,.30),transparent 62%),
+      radial-gradient(40% 42% at 30% 0%,rgba(97,250,255,.13),transparent 66%),
+      radial-gradient(72% 62% at 52% -10%,rgba(60,120,175,.10),transparent 72%);
+    filter:blur(6px);
+    -webkit-mask-image:linear-gradient(#000 52%,transparent);mask-image:linear-gradient(#000 52%,transparent);
+  }
+  .hero::after{
+    opacity:.55;
+    background:repeating-linear-gradient(93deg,transparent 0 30px,rgba(97,250,255,.06) 30px 31px,transparent 31px 64px);
+    -webkit-mask-image:radial-gradient(56% 62% at 66% 4%,#000,transparent 66%);
+    mask-image:radial-gradient(56% 62% at 66% 4%,#000,transparent 66%);
+  }
   .hero .display{max-width:15ch}
-  .hero .lede{margin-top:26px;font-size:clamp(17px,1.65vw,20px);max-width:50ch}
+  .hero .lede{margin-top:26px;font-size:clamp(17px,1.65vw,20px);max-width:52ch}
   .hero-cta{display:flex;align-items:center;gap:28px;margin-top:36px;flex-wrap:wrap}
   .hero-clips{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
   .hero-clips .clip{aspect-ratio:9/16}
-  .hero-clips .clip:nth-child(2){z-index:2} /* centre sits on top so the others emerge from behind it */
-  /* emerge-from-centre entrance: left + right start stacked behind the centre, then spread out */
+  .hero-clips .clip:nth-child(2){z-index:2}
   .js .hero-clips .clip{opacity:0;transition:transform 1.05s cubic-bezier(.16,1,.3,1),opacity .7s ease}
   .js .hero-clips .clip:nth-child(1){transform:translateX(calc(100% + 18px)) scale(.9)}
   .js .hero-clips .clip:nth-child(3){transform:translateX(calc(-100% - 18px)) scale(.9)}
@@ -134,29 +145,46 @@
   .js .hero-clips.emerged .clip:nth-child(1),
   .js .hero-clips.emerged .clip:nth-child(3){transition-delay:.12s}
 
-  /* ---------- video wells (flat, no gradient) ---------- */
+  /* ---------- video wells ---------- */
   .clip{position:relative;border-radius:var(--r);overflow:hidden;background:var(--bg-2);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s}
   .clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-2)}
   .clip__file{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);pointer-events:none}
   .clip.has-video .clip__file{display:none}
-  .clip .tag{
-    position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:8px;
-    font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
-    background:rgba(9,12,13,.74);backdrop-filter:blur(6px);border:1px solid var(--line);padding:7px 12px;border-radius:9px;
+
+  /* ---------- LOGO TICKER ("made videos for") — auto-scrolling marquee ---------- */
+  .proof{padding:clamp(38px,4.6vw,58px) 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--bg)}
+  .proof__label{text-align:center;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 clamp(24px,3vw,36px)}
+  .ticker{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .ticker__track{display:flex;align-items:center;gap:clamp(44px,6vw,88px);width:max-content;animation:tick 40s linear infinite}
+  .ticker:hover .ticker__track{animation-play-state:paused}
+  @keyframes tick{to{transform:translateX(calc(-50% - clamp(22px,3vw,44px)))}}
+  /* Each .brandmark is a text wordmark placeholder — swap for <img src="logos/x.svg" alt="X" class="brandmark"> (edit BOTH copies in the track) */
+  .brandmark{
+    font-family:var(--sans);font-weight:700;font-size:clamp(18px,2vw,25px);letter-spacing:-.015em;
+    color:var(--ink);opacity:.6;transition:opacity .25s,color .25s;white-space:nowrap;flex:none;
   }
-  .clip .tag::before{content:"";width:0;height:12px;border-left:2px solid var(--accent)}
+  .brandmark:hover{opacity:1}
+  /* text + icon-mark lockup (for brands that only have an app-icon, no wordmark) */
+  .brandlockup{display:inline-flex;align-items:center;gap:10px;flex:none;opacity:.62;transition:opacity .25s}
+  .brandlockup:hover{opacity:1}
+  /* icon marks: greyscale at rest, full colour on hover (matches the wordmark treatment) */
+  .brandlockup img{height:clamp(24px,2.5vw,30px);width:auto;border-radius:7px;flex:none;filter:grayscale(1) brightness(1.05) contrast(.95);transition:filter .25s}
+  .brandlockup:hover img{filter:none}
+  .brandlockup span{font-family:var(--sans);font-weight:700;font-size:clamp(18px,2vw,25px);letter-spacing:-.015em;color:var(--ink);white-space:nowrap}
+  /* logos rendered monochrome-white for a unified dark-site look; full colour on hover */
+  img.brandmark{height:var(--h,30px);width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.62;transition:opacity .25s,filter .25s}
+  img.brandmark:hover{filter:none;opacity:1}
+  /* per-logo optical sizing (logos are padding-trimmed, so height ≈ visual weight). Wordmarks run wide → shorter; marks+word → taller. */
+  .lg-emergent{--h:22px}   /* 813x176, aspect 4.6 — wide wordmark */
+  .lg-replit{--h:24px}     /* 122x35,  aspect 3.5 */
+  .lg-split{--h:24px}      /* 796x160, aspect 5.0 — wide */
+  .lg-settlemate{--h:30px} /* 428x92,  aspect 4.6 */
+  .lg-olive{--h:34px}      /* 1300x644,aspect 2.0 — chunky mark */
+  .lg-payme{--h:30px}      /* 637x165, aspect 3.9 */
+  .lg-kalshi{--h:26px}     /* 1280x329,aspect 3.9 */
+  .lg-everkind{--h:28px}   /* 377x143, aspect 2.6 */
 
-  /* ---------- trust marquee ---------- */
-  .trust{padding:34px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--bg)}
-  .trust__label{text-align:center;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin:0}
-  .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-  .marquee__track{display:flex;gap:22px;width:max-content;animation:scroll 34s linear infinite}
-  .marquee:hover .marquee__track{animation-play-state:paused}
-  @keyframes scroll{to{transform:translateX(calc(-50% - 11px))}}
-  /* LOGO SLOT — replace each .logo with <img src="logos/brand.svg" alt="Brand"> (monochrome/light). Edit BOTH halves. */
-  .logo{flex:none;width:168px;height:64px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--ink-faint);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:var(--bg-2)}
-
-  /* ---------- statement (light, serif + sans emphasis, word-lit) ---------- */
+  /* ---------- statement (light, word-lit) ---------- */
   .statement .big{font-family:var(--serif);font-weight:400;font-size:clamp(31px,5.3vw,64px);line-height:1.14;letter-spacing:-.02em;max-width:21ch;margin-top:30px}
   .statement .word{display:inline-block;opacity:.16;transition:opacity .5s ease}
   .statement .word.em{color:var(--panel-accent)}
@@ -172,7 +200,6 @@
   .pcard .pain{margin:0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--panel-accent);display:flex;align-items:center;gap:8px}
   .pcard .pain::before{content:"\2715";font-size:12px}
   .pcard p{margin:0;color:var(--panel-dim);font-size:15.5px;line-height:1.55}
-  /* problem headline stays brand cyan; only the CARDS carry the red pain accent */
   #problem .pcard{--panel-accent:#FF6B5E}
   #problem .pcard:hover{border-color:rgba(255,107,94,.45)}
 
@@ -210,12 +237,51 @@
   .step h3{font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-.01em;margin-top:2px}
   .step p{margin:0;color:var(--panel-dim);font-size:15.5px;line-height:1.55}
 
-  /* ---------- creative-intelligence: text-left + large line-art graphic-right (bento) ---------- */
-  .intel__head{max-width:60ch}
-  .intel__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:clamp(40px,4.6vw,60px)}
+  /* ---------- speed timeline: two rows on ONE week-scale (traditional 4 weeks vs 1 week) ---------- */
+  .timeline{margin-top:clamp(46px,5.4vw,68px);display:flex;flex-direction:column;gap:clamp(32px,3.6vw,48px)}
+  .tl__meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:16px}
+  .tl__name{font-family:var(--sans);font-weight:700;font-size:clamp(14px,1.5vw,17px);letter-spacing:.01em;color:var(--ink)}
+  .tl__name--us{color:var(--panel-accent)}
+  .tl__time{font-family:var(--serif);font-size:clamp(21px,2.6vw,34px);line-height:1;letter-spacing:-.02em;color:var(--ink-dim)}
+  .tl__time--us{color:var(--panel-accent)}
+  .tl__track{display:flex;gap:10px;height:clamp(88px,9vw,104px)}
+  .seg{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:10px;min-width:0;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.018);border:1px solid var(--line-2);overflow:hidden;transition:transform .3s,border-color .3s,background .3s}
+  .seg:hover{transform:translateY(-3px);border-color:rgba(97,250,255,.32);background:rgba(255,255,255,.03)}
+  .seg__ic{width:17px;height:17px;color:var(--ink-faint);flex:none;opacity:.85}
+  .seg__ic svg{width:100%;height:100%}
+  .seg__b{min-width:0;max-width:100%}
+  .seg__t{display:block;font-size:13px;font-weight:600;letter-spacing:-.005em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .seg__w{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);opacity:.72;margin-top:5px}
+  .seg--pain{border-color:rgba(255,107,94,.28)}
+  .seg--pain .seg__ic,.seg--pain .seg__t{color:#FF6B5E}
+  .seg--pain .seg__ic{opacity:1}
+  /* SanshX box: translucent glowing cyan panel (sleeker than a flat block) */
+  .seg--us{background:linear-gradient(135deg,rgba(97,250,255,.18),rgba(97,250,255,.05));border:1px solid rgba(97,250,255,.55);box-shadow:0 0 0 1px rgba(97,250,255,.06) inset,0 22px 56px -30px rgba(97,250,255,.5)}
+  .seg--us .seg__ic,.seg--us .seg__t{color:var(--accent);opacity:1}
+  .seg--us .seg__w{color:var(--accent);opacity:.7}
+  .seg--empty{background:transparent;border:1px dashed var(--line-2);box-shadow:none}
+  .seg--empty:hover{transform:none;border-color:var(--line-2)}
+  /* SanshX row extends into A/B hook variations — one production, many tests */
+  .tl__variants{flex:1;display:flex;align-items:center;gap:14px;min-width:0}
+  .tl__link{flex:none;width:clamp(16px,2.2vw,30px);border-top:1.5px dashed rgba(97,250,255,.3)}
+  .vstack{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .vchip{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:10px;border:1px solid rgba(97,250,255,.2);background:rgba(97,250,255,.035);
+    font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:border-color .25s,background .25s}
+  .vchip:hover{border-color:rgba(97,250,255,.4);background:rgba(97,250,255,.06)}
+  .vchip i{flex:none;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  .vchip em{font-style:normal;color:var(--ink-dim);font-weight:500}
+  .tl__note{display:flex;gap:13px;align-items:flex-start;margin-top:clamp(24px,2.8vw,34px);max-width:74ch;color:var(--ink-dim);font-size:14.5px;line-height:1.56}
+  .tl__note svg{width:21px;height:21px;color:var(--accent);flex:none;margin-top:1px}
+  .tl__note b{color:var(--ink);font-weight:600}
+
+  /* ---------- creative-intelligence: text-left + large line-art graphic-right ---------- */
+  .intel{margin-top:clamp(56px,6.5vw,92px);border-top:1px solid var(--line-2);padding-top:clamp(44px,4.8vw,66px)}
+  .intel__lead{max-width:24ch;font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.4vw,44px);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin:0 0 clamp(30px,3.4vw,46px)}
+  .intel__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
   .icard{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg-3),var(--bg-2));border:1px solid var(--line);border-radius:var(--r);
     display:grid;align-items:center;gap:16px;padding:clamp(28px,2.6vw,38px);min-height:238px;transition:border-color .3s,transform .3s}
   .icard:hover{border-color:rgba(97,250,255,.42);transform:translateY(-3px)}
+  /* asymmetric bento: wide (7) gives the art a landscape area, narrow (5) a tighter one — both text-left + art-right */
   .icard--wide{grid-column:span 7;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr)}
   .icard--narrow{grid-column:span 5;grid-template-columns:minmax(0,1fr) minmax(0,.92fr)}
   .icard h3{font-family:var(--sans);font-weight:700;font-size:clamp(18px,1.8vw,21px);letter-spacing:-.01em}
@@ -223,9 +289,13 @@
   .icard__art{position:relative;height:100%;min-height:150px;color:var(--accent);display:flex;align-items:center;justify-content:center}
   .icard__art svg{height:100%;width:100%;max-height:188px;overflow:visible}
   .icard__art .faint{color:var(--ink-faint)}
+  @media (prefers-reduced-motion:no-preference){
+    .radar-sweep{transform-box:fill-box;transform-origin:center;animation:radar 6s linear infinite}
+  }
+  @keyframes radar{to{transform:rotate(360deg)}}
 
   /* ---------- stats ---------- */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
   .stat{padding:32px 26px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2)}
   .stat .fig{font-family:var(--serif);font-size:clamp(40px,4.4vw,58px);line-height:1;letter-spacing:-.04em}
   .stat .cap{margin-top:16px;color:var(--ink-dim);font-size:14.5px;line-height:1.5}
@@ -273,19 +343,13 @@
     .nav-links .btn{margin:14px var(--pad) 0}
     .nav-toggle{display:block}
     .cards-3{grid-template-columns:1fr}
-    .stats{grid-template-columns:repeat(2,1fr)}
     .icard--wide,.icard--narrow{grid-column:span 6}
-    .steps{grid-template-columns:1fr;border-top:0}
-    .step{border-right:0;border-top:1px solid var(--panel-line);padding:28px 0}
-    .step:first-child{padding:28px 0}
     .work-grid{grid-template-columns:repeat(2,1fr)}
     #work .wrap{max-width:var(--maxw)}
-    /* skip the emerge spread on small screens — just show the clips */
     .js .hero-clips .clip:nth-child(1),
     .js .hero-clips .clip:nth-child(2),
     .js .hero-clips .clip:nth-child(3){opacity:1;transform:none;transition:opacity .5s ease}
   }
-  /* comparison table → stacked cards on phone (no horizontal scroll) */
   @media (max-width:700px){
     .table-scroll{overflow:visible;border:0;border-radius:0}
     table.cmp{min-width:0;background:transparent;display:block}
@@ -302,26 +366,43 @@
   }
   @media (max-width:600px){
     body{font-size:16px}
-    /* hero clips → swipeable, auto-scrolling carousel; bigger, tighter */
     .hero-clips{position:relative;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:clamp(30px,8vw,48px) calc(var(--pad)*-1) 0;padding:0 var(--pad) 6px;scrollbar-width:none;-ms-overflow-style:none}
     .hero-clips::-webkit-scrollbar{display:none}
     .hero-clips .clip{flex:0 0 66%;scroll-snap-align:center;display:block}
     .js .hero-clips .clip:nth-child(1),.js .hero-clips .clip:nth-child(2),.js .hero-clips .clip:nth-child(3){opacity:1;transform:none;transition:none}
-    /* bigger, tighter work tiles */
     #work{--pad:12px}
     .work-grid{column-gap:4px;row-gap:14px;margin-top:24px}
-    /* keep the stat figure on one line */
+    .stats{grid-template-columns:1fr}
     .stat{padding:26px 20px}
     .stat .fig{font-size:32px;white-space:nowrap}
-    /* footer fully stacked */
-    .foot{flex-direction:column;align-items:flex-start;gap:30px}
-    .cta .lede{padding:0 8px}
-    /* intel bento → single column, art below text */
+    /* speed timeline on mobile: traditional row = 2×2 grid; SanshX row = stacked box + chips */
+    .ticker img.brandmark{height:calc(var(--h,30px)*.82)}
+    .timeline{gap:36px}
+    .tl__meta{margin-bottom:14px}
+    .tl__time{font-size:22px}
+    .tl__track{height:auto;gap:10px}
+    .seg{padding:14px 12px;border-radius:11px;gap:10px;min-height:78px}
+    .seg__ic{width:18px;height:18px}
+    .seg__t{font-size:12px;white-space:normal}
+    .seg__w{font-size:9.5px;margin-top:3px}
+    /* traditional 4 steps → 2×2 grid so labels breathe */
+    .tl-row:not(.tl-row--us) .tl__track{display:grid;grid-template-columns:1fr 1fr}
+    /* SanshX: box on top, hook chips stacked full-width below (no more overflow crash) */
+    .tl-row--us .tl__track{flex-direction:column}
+    .tl-row--us .seg--us{flex:0 0 auto!important}
+    .tl__variants{width:100%;gap:0}
+    .tl__link{display:none}
+    .vstack{gap:10px}
+    .vchip{padding:11px 14px;font-size:12.5px}
+    .intel{margin-top:44px;padding-top:36px}
     .intel__grid{grid-template-columns:1fr;gap:12px}
     .icard--wide,.icard--narrow{grid-column:auto;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
     .icard{gap:16px;padding:24px;min-height:0}
     .icard__art{min-height:120px}
     .icard__art svg{max-height:150px}
+    .intel__lead{font-size:28px}
+    .foot{flex-direction:column;align-items:flex-start;gap:30px}
+    .cta .lede{padding:0 8px}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important}
@@ -329,7 +410,6 @@
     .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none}
     .js .hero-clips .clip{opacity:1!important;transform:none!important;transition:none}
     .statement .word{opacity:1!important}
-    .marquee__track{animation:none!important}
     .btn:hover,.clip:hover,.pcard:hover{transform:none}
   }
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
@@ -345,9 +425,9 @@
     </a>
     <nav class="nav-links" id="menu">
       <a href="#approach">Approach</a>
+      <a href="#speed">Method</a>
       <a href="#compare">Why us</a>
       <a href="#work">Work</a>
-      <a href="#process">Process</a>
       <a href="#book" class="btn" data-book>Book a Call</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
@@ -360,15 +440,15 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="hero wrap">
-  <p class="eyebrow reveal">AI UGC Video Studio · Beauty &amp; Personal Care</p>
+  <p class="eyebrow reveal">AI UGC Video Studio</p>
   <h1 class="display reveal" style="margin-top:24px">AI ads that keep up with how fast your creative <span class="accent">burns out</span>.</h1>
-  <p class="lede reveal">The specialist studio beauty brands trust for research-backed UGC that's built to convert — five ads in five days<!--IN-->, in Hinglish or your regional language<!--/IN-->.</p>
+  <p class="lede reveal">The specialist studio behind scroll-native UGC for apps and digital products — research-backed, built to convert, five ads in five days.</p>
   <div class="hero-cta reveal">
     <a href="#book" class="btn" data-book>Book a Call</a>
     <a href="#work" class="link-under">See the work</a>
   </div>
 
-  <!-- Hero clips: the top three (1/2/3), aligned; left+right emerge from the centre. -->
+  <!-- Hero clips: centre sits on top; left + right emerge from behind it. -->
   <div class="hero-clips" id="heroClips">
     <figure class="clip" data-unmute><video src="clips/1.mp4" autoplay muted loop playsinline preload="metadata"></video><span class="clip__file">clips/1.mp4</span></figure>
     <figure class="clip" data-unmute><video src="clips/2.mp4" autoplay muted loop playsinline preload="metadata"></video><span class="clip__file">clips/2.mp4</span></figure>
@@ -376,11 +456,39 @@
   </div>
 </section>
 
-<!-- ===================== TRUST LABEL ===================== -->
-<section class="trust" aria-label="Brands we work with">
-  <div class="wrap"><p class="trust__label">Trusted by beauty &amp; personal-care brands</p></div>
-  <!-- Logo marquee hidden for now. To bring it back, restore a
-       <div class="marquee"><div class="marquee__track">…logos…</div></div> here. -->
+<!-- ===================== LOGO TICKER ("made videos for") ===================== -->
+<section class="proof" aria-label="Brands we've made videos for">
+  <p class="proof__label">Made videos for</p>
+  <!-- Auto-scrolling ticker. Logos are listed TWICE for a seamless loop — edit BOTH copies.
+       Wordmark brands = <img class="brandmark lg-x">; icon-only brands (Kalo/Roamy/vibecode) = colour-icon + text lockup. -->
+  <div class="ticker">
+    <div class="ticker__track">
+      <img class="brandmark lg-emergent" src="logos/emergent.png" alt="Emergent" />
+      <img class="brandmark lg-replit" src="logos/replit.svg" alt="Replit" />
+      <img class="brandmark lg-split" src="logos/split.png" alt="Split" />
+      <img class="brandmark lg-settlemate" src="logos/settlemate.svg" alt="Settlemate" />
+      <img class="brandmark lg-olive" src="logos/olive.png" alt="Olive" />
+      <img class="brandmark lg-payme" src="logos/payme.png" alt="PayMe" />
+      <img class="brandmark lg-kalshi" src="logos/kalshi.webp" alt="Kalshi" />
+      <img class="brandmark lg-everkind" src="logos/everkind.png" alt="Everkind" />
+      <!-- app-icon-only brands: colour icon mark + text wordmark lockup -->
+      <span class="brandlockup"><img src="logos/kalo.png" alt="" aria-hidden="true" /><span>Kalo</span></span>
+      <span class="brandlockup"><img src="logos/roamy.png" alt="" aria-hidden="true" /><span>Roamy</span></span>
+      <span class="brandlockup"><img src="logos/vibecode.jpeg" alt="" aria-hidden="true" /><span>vibecode</span></span>
+      <!-- duplicate set (keep identical) -->
+      <img class="brandmark lg-emergent" src="logos/emergent.png" alt="" aria-hidden="true" />
+      <img class="brandmark lg-replit" src="logos/replit.svg" alt="" aria-hidden="true" />
+      <img class="brandmark lg-split" src="logos/split.png" alt="" aria-hidden="true" />
+      <img class="brandmark lg-settlemate" src="logos/settlemate.svg" alt="" aria-hidden="true" />
+      <img class="brandmark lg-olive" src="logos/olive.png" alt="" aria-hidden="true" />
+      <img class="brandmark lg-payme" src="logos/payme.png" alt="" aria-hidden="true" />
+      <img class="brandmark lg-kalshi" src="logos/kalshi.webp" alt="" aria-hidden="true" />
+      <img class="brandmark lg-everkind" src="logos/everkind.png" alt="" aria-hidden="true" />
+      <span class="brandlockup" aria-hidden="true"><img src="logos/kalo.png" alt="" /><span>Kalo</span></span>
+      <span class="brandlockup" aria-hidden="true"><img src="logos/roamy.png" alt="" /><span>Roamy</span></span>
+      <span class="brandlockup" aria-hidden="true"><img src="logos/vibecode.jpeg" alt="" /><span>vibecode</span></span>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== APPROACH STATEMENT (light) ===================== -->
@@ -400,8 +508,8 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">The problem</span>
-      <h2 class="display">Beauty creative burns out in weeks — <span class="accent">faster than almost any category</span>.</h2>
-      <p class="lede">Keeping paid social efficient means a constant stream of fresh video — and every usual way to get it comes with a catch that quietly drives your CPA up.</p>
+      <h2 class="display">Performance creative burns out in weeks — <span class="accent">faster than you can brief the next batch</span>.</h2>
+      <p class="lede">Keeping paid acquisition efficient means a constant stream of fresh video — and every usual way to get it comes with a catch that quietly drives your CAC up.</p>
     </div>
     <div class="cards-3 stagger">
       <div class="pcard">
@@ -418,10 +526,239 @@
       </div>
       <div class="pcard">
         <span class="pcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
-        <h3>Global AI tools</h3>
-        <p class="pain">Foreign and hands-off</p>
-        <p>Western faces, English scripts, and the strategy still lands back on you.</p>
+        <h3>Generic AI tools</h3>
+        <p class="pain">Templated and hands-off</p>
+        <p>Stock avatars, robotic scripts, and the strategy still lands right back on you.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SPEED INFOGRAPHIC ===================== -->
+<section class="section" id="speed">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Time to launch</span>
+      <h2 class="display">The old way takes a month. <span class="accent">We take a week.</span></h2>
+      <p class="lede">Same output, a quarter of the calendar — the slow, manual weeks disappear, and the week that's left is spent on strategy, not logistics.</p>
+    </div>
+    <!-- Both rows share ONE week-scale: 4 equal traditional weeks vs a single SanshX week (1/4 the length). -->
+    <div class="timeline reveal">
+      <div class="tl-row">
+        <div class="tl__meta"><span class="tl__name">The traditional way</span><span class="tl__time">≈ 4 weeks</span></div>
+        <div class="tl__track" role="img" aria-label="Traditional production spans about four weeks: week one casting and scripting, week two shoot and prep, week three editing, week four endless revisions.">
+          <div class="seg" style="flex:1">
+            <span class="seg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="seg__b"><span class="seg__t">Casting &amp; scripting</span><span class="seg__w">Week 1</span></span>
+          </div>
+          <div class="seg" style="flex:1">
+            <span class="seg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></span>
+            <span class="seg__b"><span class="seg__t">Shoot + prep</span><span class="seg__w">Week 2</span></span>
+          </div>
+          <div class="seg" style="flex:1">
+            <span class="seg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg></span>
+            <span class="seg__b"><span class="seg__t">Editing</span><span class="seg__w">Week 3</span></span>
+          </div>
+          <div class="seg seg--pain" style="flex:1">
+            <span class="seg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></span>
+            <span class="seg__b"><span class="seg__t">Endless revisions</span><span class="seg__w">Week 4+</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-row tl-row--us">
+        <div class="tl__meta"><span class="tl__name tl__name--us">With SanshX</span><span class="tl__time tl__time--us">1 week</span></div>
+        <div class="tl__track" role="img" aria-label="SanshX delivers the whole batch in one week — about a quarter of the traditional timeline — and spins that one production into multiple hook variations for A/B testing.">
+          <div class="seg seg--us" style="flex:0 0 24%">
+            <span class="seg__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+            <span class="seg__b"><span class="seg__t">Idea to ready-to-run</span><span class="seg__w">One week, end to end</span></span>
+          </div>
+          <!-- one production fans out into A/B hook variations -->
+          <div class="tl__variants">
+            <span class="tl__link" aria-hidden="true"></span>
+            <div class="vstack">
+              <span class="vchip"><i></i>Hook A <em>· problem-led</em></span>
+              <span class="vchip"><i></i>Hook B <em>· fresh angle</em></span>
+              <span class="vchip"><i></i>Hook C <em>· new format</em></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="tl__note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+      <span><b>The AI edge: one production becomes many.</b> We A/B test multiple scripts and hook variations per concept — optimizing for hook-hold and click-through — instead of riding a single cut. A traditional creator can only give you what they shot on the day.</span>
+    </p>
+
+    <!-- Creative intelligence: what actually fills that week (bento, low-copy, data-graphic motifs) -->
+    <div class="intel reveal">
+      <p class="intel__lead">Not just faster. <span class="accent">Sharper.</span></p>
+      <div class="intel__grid stagger">
+
+        <!-- Competitor analysis (WIDE) — swipe-wall of ad frames, winners identified -->
+        <div class="icard icard--wide">
+          <div class="icard__text">
+            <h3>Competitor analysis</h3>
+            <p>The paid ads already winning in your category — decoded.</p>
+          </div>
+          <div class="icard__art" aria-hidden="true">
+            <svg viewBox="0 0 300 180" fill="none" stroke-linejoin="round">
+              <!-- ad frames -->
+              <g class="faint" stroke="currentColor" stroke-width="1.4">
+                <rect x="20" y="42" width="40" height="96" rx="6" opacity=".35"/>
+                <rect x="130" y="42" width="40" height="96" rx="6" opacity=".35"/>
+                <rect x="240" y="42" width="40" height="96" rx="6" opacity=".35"/>
+              </g>
+              <!-- winners: cyan frame + soft fill -->
+              <rect x="75" y="42" width="40" height="96" rx="6" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-width="1.8"/>
+              <rect x="185" y="42" width="40" height="96" rx="6" fill="currentColor" fill-opacity=".07" stroke="currentColor" stroke-width="1.8"/>
+              <!-- play glyphs -->
+              <path class="faint" d="M36 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
+              <path class="faint" d="M146 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
+              <path class="faint" d="M256 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
+              <path d="M91 82 l10 8 l-10 8 Z" fill="currentColor"/>
+              <path d="M201 82 l10 8 l-10 8 Z" fill="currentColor"/>
+              <!-- scan brackets around the top winner + check -->
+              <g stroke="currentColor" stroke-width="1.8">
+                <path d="M66 34 h-8 v8"/><path d="M124 34 h8 v8"/><path d="M66 146 h-8 v-8"/><path d="M124 146 h8 v-8"/>
+              </g>
+              <circle cx="95" cy="30" r="7" fill="currentColor"/>
+              <path d="M92 30 l2.2 2.4 l4-4.6" stroke="var(--panel-bg)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="205" cy="30" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Organic signal (NARROW) — creator constellation -->
+        <div class="icard icard--narrow">
+          <div class="icard__text">
+            <h3>Organic signal</h3>
+            <p>What real creators and brands post — not just what runs as ads.</p>
+          </div>
+          <div class="icard__art" aria-hidden="true">
+            <svg viewBox="0 0 220 180" fill="none">
+              <!-- links -->
+              <g class="faint" stroke="currentColor" stroke-width="1" opacity=".4">
+                <line x1="110" y1="92" x2="42" y2="46"/>
+                <line x1="110" y1="92" x2="96" y2="30"/>
+                <line x1="110" y1="92" x2="168" y2="52"/>
+                <line x1="110" y1="92" x2="184" y2="116"/>
+                <line x1="110" y1="92" x2="58" y2="126"/>
+                <line x1="110" y1="92" x2="104" y2="152"/>
+                <line x1="110" y1="92" x2="172" y2="150"/>
+              </g>
+              <!-- faint halo on the hub -->
+              <circle cx="110" cy="92" r="18" class="faint" stroke="currentColor" stroke-width="1" opacity=".25"/>
+              <!-- creator nodes -->
+              <circle cx="96" cy="30" r="3.5" fill="currentColor"/>
+              <circle cx="168" cy="52" r="4" fill="currentColor"/>
+              <circle cx="172" cy="150" r="3.5" fill="currentColor"/>
+              <circle cx="42" cy="46" r="3" class="faint" fill="currentColor" opacity=".7"/>
+              <circle cx="184" cy="116" r="3" class="faint" fill="currentColor" opacity=".7"/>
+              <circle cx="58" cy="126" r="3" class="faint" fill="currentColor" opacity=".7"/>
+              <circle cx="104" cy="152" r="2.6" class="faint" fill="currentColor" opacity=".7"/>
+              <!-- hub -->
+              <circle cx="110" cy="92" r="6.5" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Fatigue-aware (NARROW) — gauge (kept) -->
+        <div class="icard icard--narrow">
+          <div class="icard__text">
+            <h3>Fatigue-aware</h3>
+            <p>We refresh creative before your CAC starts climbing.</p>
+          </div>
+          <div class="icard__art" aria-hidden="true">
+            <svg viewBox="0 0 240 190" fill="none" stroke-linecap="round">
+              <path d="M120 45 A75 75 0 0 1 192.4 105.6" class="faint" stroke="currentColor" stroke-width="2" opacity=".4" stroke-dasharray="2 7"/>
+              <path d="M60 170 A75 75 0 0 1 120 45" stroke="currentColor" stroke-width="3"/>
+              <line x1="120" y1="125" x2="165" y2="88" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="120" cy="125" r="5.5" fill="var(--panel-bg)" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Double down & experiment (WIDE) — funnel of tests converging to a scaled winner -->
+        <div class="icard icard--wide">
+          <div class="icard__text">
+            <h3>Double down &amp; experiment</h3>
+            <p>Scale the winners, test the next ones — every batch.</p>
+          </div>
+          <div class="icard__art" aria-hidden="true">
+            <svg viewBox="0 0 300 180" fill="none" stroke-linecap="round">
+              <!-- round 1 -> round 2 connectors -->
+              <g class="faint" stroke="currentColor" stroke-width="1.3" opacity=".5">
+                <path d="M34 30 C92 30 96 72 148 72"/>
+                <path d="M34 66 C92 66 100 72 148 72"/>
+                <path d="M34 108 C92 108 100 116 148 116"/>
+                <path d="M34 150 C92 150 96 116 148 116"/>
+              </g>
+              <!-- round 2 -> winner (stop cleanly at the circle's edge, ~x=232) -->
+              <path d="M150 72 C200 72 206 90 232 86" stroke="currentColor" stroke-width="2" opacity=".9"/>
+              <path d="M150 116 C200 116 206 90 232 94" stroke="currentColor" stroke-width="2" opacity=".9"/>
+              <!-- round 1 candidates (bottom one dashed = an experiment being tested) -->
+              <circle cx="34" cy="30" r="3" class="faint" fill="currentColor" opacity=".7"/>
+              <circle cx="34" cy="66" r="3.6" fill="currentColor"/>
+              <circle cx="34" cy="108" r="3.6" fill="currentColor"/>
+              <circle cx="34" cy="150" r="5" class="faint" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4"/>
+              <!-- round 2 -->
+              <circle cx="150" cy="72" r="5" fill="currentColor"/>
+              <circle cx="150" cy="116" r="5" fill="currentColor"/>
+              <!-- scaled winner: drawn LAST, opaque so nothing crosses the tick -->
+              <circle cx="254" cy="90" r="22" fill="var(--bg-2)" stroke="currentColor" stroke-width="2.4"/>
+              <path d="M245 90 l6 6.5 l11-13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WORK ===================== -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The work</span>
+      <h2 class="display">Every ad starts from what's <span class="accent">already working</span>.</h2>
+      <p class="lede">Real AI ads, running live for apps and digital products right now — indistinguishable from human content, and built to move CAC and ROAS.</p>
+    </div>
+    <!-- All work clips autoplay muted + loop while on screen, and unmute on hover / tap. -->
+    <div class="work-grid stagger">
+      <figure class="clip" data-unmute><video src="clips/1NjRVV2wh7ws828BOI6ZaL4w2Y.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 01</span></figure>
+      <figure class="clip" data-unmute><video src="clips/DbU4xuQpa8s94kO6AxEytkgk0.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 02</span></figure>
+      <figure class="clip" data-unmute><video src="clips/ILItUUqDi5HMdoHLl9Vs6bGQcI.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 03</span></figure>
+      <figure class="clip" data-unmute><video src="clips/Inb1CfYLHN1IQX3BNddDzdf0ys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 04</span></figure>
+      <figure class="clip" data-unmute><video src="clips/IpciZB39yORbEgCn4pGYE0XhSs.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 05</span></figure>
+      <figure class="clip" data-unmute><video src="clips/KZ0Y9R38vfkHqzRNcVqTPLNerKE.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 06</span></figure>
+      <figure class="clip" data-unmute><video src="clips/MmFuUsg418jmazjMvoWkBc5SZU.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 07</span></figure>
+      <figure class="clip" data-unmute><video src="clips/W19mLxoPsxbykvWUxISIcS7yk.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 08</span></figure>
+      <figure class="clip" data-unmute><video src="clips/XpCsQgVUsjVHr5z1zJ66qxdILjY.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 09</span></figure>
+      <figure class="clip" data-unmute><video src="clips/XuK9QPVwoQHFVbXGSkbIL2aJv18.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 10</span></figure>
+      <figure class="clip" data-unmute><video src="clips/aemc9q20mwqsloE4hcM4j1cTys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 11</span></figure>
+      <figure class="clip" data-unmute><video src="clips/hdnqpaYYgXHjVXX3yGe9OWeuHc.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 12</span></figure>
+      <figure class="clip" data-unmute><video src="clips/tn6DDp8DcYCAQ1TqB0fn7CGMqFo.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 13</span></figure>
+      <figure class="clip" data-unmute><video src="clips/uAw9Va9wrFscx53WG2yES5nts.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 14</span></figure>
+      <figure class="clip" data-unmute><video src="clips/vVNnYnFPi6ueT0pguKLguhVwiQ.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 15</span></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The outcomes</span>
+      <h2 class="display">We build ads to <span class="accent">convert</span>, not to entertain.</h2>
+    </div>
+    <div class="stats stagger">
+      <!-- CAC — representative range; confirm it's defensible before going live. -->
+      <div class="stat"><div class="fig">30–40%</div><div class="cap">Lower CAC once our creatives are live in your account.</div></div>
+      <div class="stat"><div class="fig">1 week</div><div class="cap">From idea to production — brief to a finished, ready-to-run batch.</div></div>
+      <!-- AD SPEND — real figure supplied by the team. Update if it changes. -->
+      <div class="stat"><div class="fig">$<span data-count="300">300</span>k+</div><div class="cap">In ad spend already running on our creative.</div></div>
     </div>
   </div>
 </section>
@@ -432,7 +769,7 @@
     <div class="section-head reveal">
       <span class="eyebrow">Why SanshX</span>
       <h2 class="display">The specialists, <span class="accent">not another option</span>.</h2>
-      <p class="lede">We do one thing: research-driven AI UGC for beauty and personal care. It's all we do, and we've done it long enough to do it better than anyone.</p>
+      <p class="lede">We do one thing: research-driven AI UGC for apps and digital products. It's all we do, and we've done it long enough to do it better than anyone.</p>
     </div>
     <div class="table-scroll reveal">
       <table class="cmp">
@@ -455,9 +792,9 @@
             <td class="sanshx">A focused specialist team, faster sprints, no retainer bloat</td>
           </tr>
           <tr>
-            <td class="opt">Global AI tools</td>
-            <td class="cost" data-label="The usual way">Western faces, English scripts — you still do the strategy</td>
-            <td class="sanshx"><!--IN-->Indian faces, Hinglish or regional,<!--/IN--> full research-to-delivery, handled</td>
+            <td class="opt">Generic AI tools</td>
+            <td class="cost" data-label="The usual way">Stock avatars, robotic scripts — you still do the strategy</td>
+            <td class="sanshx">Real-feeling UGC, full research-to-delivery, handled end to end</td>
           </tr>
           <tr>
             <td class="opt">Guesswork between batches</td>
@@ -466,201 +803,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== WORK ===================== -->
-<section class="section" id="work">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">The work</span>
-      <h2 class="display">Every ad starts from what's <span class="accent">already working</span>.</h2>
-      <p class="lede">Real AI ads, running live for brands right now — indistinguishable from human content, and built to move ROAS and CPP.</p>
-    </div>
-    <!-- All work clips autoplay muted + loop while on screen, and unmute on hover. -->
-    <div class="work-grid stagger">
-      <figure class="clip" data-unmute><video src="clips/1NjRVV2wh7ws828BOI6ZaL4w2Y.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 01</span></figure>
-      <figure class="clip" data-unmute><video src="clips/DbU4xuQpa8s94kO6AxEytkgk0.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 02</span></figure>
-      <figure class="clip" data-unmute><video src="clips/ILItUUqDi5HMdoHLl9Vs6bGQcI.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 03</span></figure>
-      <figure class="clip" data-unmute><video src="clips/Inb1CfYLHN1IQX3BNddDzdf0ys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 04</span></figure>
-      <figure class="clip" data-unmute><video src="clips/IpciZB39yORbEgCn4pGYE0XhSs.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 05</span></figure>
-      <figure class="clip" data-unmute><video src="clips/KZ0Y9R38vfkHqzRNcVqTPLNerKE.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 06</span></figure>
-      <figure class="clip" data-unmute><video src="clips/MmFuUsg418jmazjMvoWkBc5SZU.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 07</span></figure>
-      <figure class="clip" data-unmute><video src="clips/W19mLxoPsxbykvWUxISIcS7yk.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 08</span></figure>
-      <figure class="clip" data-unmute><video src="clips/XpCsQgVUsjVHr5z1zJ66qxdILjY.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 09</span></figure>
-      <figure class="clip" data-unmute><video src="clips/XuK9QPVwoQHFVbXGSkbIL2aJv18.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 10</span></figure>
-      <figure class="clip" data-unmute><video src="clips/aemc9q20mwqsloE4hcM4j1cTys.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 11</span></figure>
-      <figure class="clip" data-unmute><video src="clips/hdnqpaYYgXHjVXX3yGe9OWeuHc.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 12</span></figure>
-      <figure class="clip" data-unmute><video src="clips/tn6DDp8DcYCAQ1TqB0fn7CGMqFo.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 13</span></figure>
-      <figure class="clip" data-unmute><video src="clips/uAw9Va9wrFscx53WG2yES5nts.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 14</span></figure>
-      <figure class="clip" data-unmute><video src="clips/vVNnYnFPi6ueT0pguKLguhVwiQ.mp4" muted loop playsinline preload="none"></video><span class="clip__file">clip 15</span></figure>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PROCESS (light) ===================== -->
-<section class="section panel--light" id="process">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2 class="display">Research. Produce. Report. <span class="accent">Then again.</span></h2>
-    </div>
-    <div class="steps stagger">
-      <div class="step">
-        <span class="num">01</span>
-        <span class="kicker">Research</span>
-        <h3>We study what's working</h3>
-        <p>We pull your competitors' live ads from the Meta Ad Library and break down the hooks, angles and formats that are actually running.</p>
-      </div>
-      <div class="step">
-        <span class="num">02</span>
-        <span class="kicker">Produce</span>
-        <h3>We write and build the batch</h3>
-        <p>Scripts grounded in that research, produced into finished videos<!--IN--> in Hinglish or your regional language<!--/IN-->, ready to post.</p>
-      </div>
-      <div class="step">
-        <span class="num">03</span>
-        <span class="kicker">Report</span>
-        <h3>We measure and sharpen</h3>
-        <p>We track each batch against your existing ads and feed what we learn straight into the next one.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CREATIVE INTELLIGENCE ===================== -->
-<section class="section" id="intel">
-  <div class="wrap">
-    <div class="section-head intel__head reveal">
-      <span class="eyebrow">How we think</span>
-      <h2 class="display">Not just faster. <span class="accent">Sharper.</span></h2>
-      <p class="lede">Every batch is briefed off a full read of what's working right now — so we're not just quick, we're right.</p>
-    </div>
-    <div class="intel__grid stagger">
-
-      <!-- Competitor analysis (WIDE) — swipe-wall of ad frames, winners identified -->
-      <div class="icard icard--wide">
-        <div class="icard__text">
-          <h3>Competitor analysis</h3>
-          <p>The paid ads already winning in your category — decoded.</p>
-        </div>
-        <div class="icard__art" aria-hidden="true">
-          <svg viewBox="0 0 300 180" fill="none" stroke-linejoin="round">
-            <g class="faint" stroke="currentColor" stroke-width="1.4">
-              <rect x="20" y="42" width="40" height="96" rx="6" opacity=".35"/>
-              <rect x="130" y="42" width="40" height="96" rx="6" opacity=".35"/>
-              <rect x="240" y="42" width="40" height="96" rx="6" opacity=".35"/>
-            </g>
-            <rect x="75" y="42" width="40" height="96" rx="6" fill="currentColor" fill-opacity=".1" stroke="currentColor" stroke-width="1.8"/>
-            <rect x="185" y="42" width="40" height="96" rx="6" fill="currentColor" fill-opacity=".07" stroke="currentColor" stroke-width="1.8"/>
-            <path class="faint" d="M36 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
-            <path class="faint" d="M146 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
-            <path class="faint" d="M256 82 l10 8 l-10 8 Z" fill="currentColor" opacity=".4"/>
-            <path d="M91 82 l10 8 l-10 8 Z" fill="currentColor"/>
-            <path d="M201 82 l10 8 l-10 8 Z" fill="currentColor"/>
-            <g stroke="currentColor" stroke-width="1.8">
-              <path d="M66 34 h-8 v8"/><path d="M124 34 h8 v8"/><path d="M66 146 h-8 v-8"/><path d="M124 146 h8 v-8"/>
-            </g>
-            <circle cx="95" cy="30" r="7" fill="currentColor"/>
-            <path d="M92 30 l2.2 2.4 l4-4.6" stroke="var(--panel-bg)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="205" cy="30" r="3" fill="currentColor"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Organic signal (NARROW) — creator constellation -->
-      <div class="icard icard--narrow">
-        <div class="icard__text">
-          <h3>Organic signal</h3>
-          <p>What real creators and brands post — not just what runs as ads.</p>
-        </div>
-        <div class="icard__art" aria-hidden="true">
-          <svg viewBox="0 0 220 180" fill="none">
-            <g class="faint" stroke="currentColor" stroke-width="1" opacity=".4">
-              <line x1="110" y1="92" x2="42" y2="46"/>
-              <line x1="110" y1="92" x2="96" y2="30"/>
-              <line x1="110" y1="92" x2="168" y2="52"/>
-              <line x1="110" y1="92" x2="184" y2="116"/>
-              <line x1="110" y1="92" x2="58" y2="126"/>
-              <line x1="110" y1="92" x2="104" y2="152"/>
-              <line x1="110" y1="92" x2="172" y2="150"/>
-            </g>
-            <circle cx="110" cy="92" r="18" class="faint" stroke="currentColor" stroke-width="1" opacity=".25"/>
-            <circle cx="96" cy="30" r="3.5" fill="currentColor"/>
-            <circle cx="168" cy="52" r="4" fill="currentColor"/>
-            <circle cx="172" cy="150" r="3.5" fill="currentColor"/>
-            <circle cx="42" cy="46" r="3" class="faint" fill="currentColor" opacity=".7"/>
-            <circle cx="184" cy="116" r="3" class="faint" fill="currentColor" opacity=".7"/>
-            <circle cx="58" cy="126" r="3" class="faint" fill="currentColor" opacity=".7"/>
-            <circle cx="104" cy="152" r="2.6" class="faint" fill="currentColor" opacity=".7"/>
-            <circle cx="110" cy="92" r="6.5" fill="currentColor"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Fatigue-aware (NARROW) — gauge -->
-      <div class="icard icard--narrow">
-        <div class="icard__text">
-          <h3>Fatigue-aware</h3>
-          <p>We refresh creative before your CPA starts climbing.</p>
-        </div>
-        <div class="icard__art" aria-hidden="true">
-          <svg viewBox="0 0 240 190" fill="none" stroke-linecap="round">
-            <path d="M120 45 A75 75 0 0 1 192.4 105.6" class="faint" stroke="currentColor" stroke-width="2" opacity=".4" stroke-dasharray="2 7"/>
-            <path d="M60 170 A75 75 0 0 1 120 45" stroke="currentColor" stroke-width="3"/>
-            <line x1="120" y1="125" x2="165" y2="88" stroke="currentColor" stroke-width="2.4"/>
-            <circle cx="120" cy="125" r="5.5" fill="var(--panel-bg)" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Double down & experiment (WIDE) — funnel of tests converging to a scaled winner -->
-      <div class="icard icard--wide">
-        <div class="icard__text">
-          <h3>Double down &amp; experiment</h3>
-          <p>Scale the winners, test the next ones — every batch.</p>
-        </div>
-        <div class="icard__art" aria-hidden="true">
-          <svg viewBox="0 0 300 180" fill="none" stroke-linecap="round">
-            <g class="faint" stroke="currentColor" stroke-width="1.3" opacity=".5">
-              <path d="M34 30 C92 30 96 72 148 72"/>
-              <path d="M34 66 C92 66 100 72 148 72"/>
-              <path d="M34 108 C92 108 100 116 148 116"/>
-              <path d="M34 150 C92 150 96 116 148 116"/>
-            </g>
-            <path d="M150 72 C200 72 206 90 232 86" stroke="currentColor" stroke-width="2" opacity=".9"/>
-            <path d="M150 116 C200 116 206 90 232 94" stroke="currentColor" stroke-width="2" opacity=".9"/>
-            <circle cx="34" cy="30" r="3" class="faint" fill="currentColor" opacity=".7"/>
-            <circle cx="34" cy="66" r="3.6" fill="currentColor"/>
-            <circle cx="34" cy="108" r="3.6" fill="currentColor"/>
-            <circle cx="34" cy="150" r="5" class="faint" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4"/>
-            <circle cx="150" cy="72" r="5" fill="currentColor"/>
-            <circle cx="150" cy="116" r="5" fill="currentColor"/>
-            <circle cx="254" cy="90" r="22" fill="var(--bg-2)" stroke="currentColor" stroke-width="2.4"/>
-            <path d="M245 90 l6 6.5 l11-13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===================== STATS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">The outcomes</span>
-      <h2 class="display">We build ads to <span class="accent">convert</span>, not to entertain.</h2>
-    </div>
-    <div class="stats stagger">
-      <!-- CPA — representative range; confirm it's defensible before going live. -->
-      <div class="stat"><div class="fig">30–40%</div><div class="cap">Lower CPA once our creatives are live in your account.</div></div>
-      <div class="stat"><div class="fig"><span data-count="5">5</span> days</div><div class="cap">From brief to a finished batch, delivered.</div></div>
-      <div class="stat"><div class="fig"><span data-count="5">5</span> ads</div><div class="cap">Every batch, built on real competitor research.</div></div>
-      <!-- AD SPEND — real figure supplied by the team. Update if it changes. -->
-      <div class="stat"><div class="fig">$<span data-count="300">300</span>k+</div><div class="cap">In ad spend already running on our creative.</div></div>
     </div>
   </div>
 </section>
@@ -679,7 +821,7 @@
 <section class="cta" id="book">
   <div class="wrap">
     <h2 class="display reveal">Ready for ads that don't go stale in two weeks?</h2>
-    <p class="lede reveal">Tell us about your brand — we'll map your first batch.</p>
+    <p class="lede reveal">Tell us about your product — we'll map your first batch.</p>
     <a href="#book" class="btn reveal" data-book>Book a Call</a>
   </div>
 </section>
@@ -691,13 +833,13 @@
   <div class="wrap foot">
     <div class="foot-brand">
       <img src="sanshx-logo.svg" alt="SanshX" class="brand-logo" />
-      <p class="tagline">The specialist AI UGC studio for beauty &amp; personal-care brands.</p>
+      <p class="tagline">The specialist AI UGC studio for apps &amp; digital products.</p>
     </div>
     <nav class="foot-links" aria-label="Footer">
       <a href="#approach">Approach</a>
+      <a href="#speed">Method</a>
       <a href="#compare">Why us</a>
       <a href="#work">Work</a>
-      <a href="#process">Process</a>
       <a href="#book" data-book>Book a call</a>
     </nav>
     <p class="contact">
@@ -737,7 +879,7 @@
       fig.addEventListener("mouseleave", () => { v.muted = true; fig.classList.remove("is-active"); });
     } else {
       fig.addEventListener("click", () => {
-        const unmute = v.muted;      // currently muted → turn sound on
+        const unmute = v.muted;
         muteOthers(fig);
         v.muted = !unmute;
         fig.classList.toggle("is-active", unmute);
@@ -746,7 +888,7 @@
     }
   });
 
-  /* only play clips while they're on screen — keeps 19 videos from decoding at once */
+  /* only play clips while they're on screen */
   const vio = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       const v = e.target;
@@ -772,7 +914,6 @@
       if (held || !phone.matches || kids.length < 2) return;
       idx = (idx + 1) % kids.length;
       const el = kids[idx];
-      // scroll ONLY the carousel horizontally (never the page)
       heroClips.scrollTo({ left: el.offsetLeft - (heroClips.clientWidth - el.clientWidth) / 2, behavior: "smooth" });
     }, 3200);
   }
