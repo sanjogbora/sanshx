@@ -730,7 +730,7 @@
      paths in data-src (not src), so nothing loads and the placeholders
      show. TO RECONNECT ALL VIDEOS: set the flag below to true.
      ------------------------------------------------------------------- */
-  const VIDEOS_ENABLED = false;
+  const VIDEOS_ENABLED = true;
   if (VIDEOS_ENABLED) document.querySelectorAll("video[data-src]").forEach(v => { v.src = v.dataset.src; });
 
   /* videos: hide filename label once loaded; desktop = hover to unmute, touch = tap to unmute */
