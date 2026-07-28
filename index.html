@@ -199,6 +199,9 @@
   .work-grid .clip{aspect-ratio:9/16}
   .work-grid .clip:hover{transform:translateY(-4px);border-color:rgba(97,250,255,.45);box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
   .clip.is-active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+  /* videos hidden (VIDEOS_ENABLED=false): hide hero clips, the Work section, and its nav links */
+  .novideo .hero-clips,.novideo #work{display:none}
+  .novideo a[href="#work"]{display:none}
 
   /* ---------- process ---------- */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid var(--panel-line)}
@@ -726,12 +729,16 @@
   menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }));
 
   /* -------------------------------------------------------------------
-     VIDEOS TEMPORARILY DISCONNECTED. The <video> tags hold their file
-     paths in data-src (not src), so nothing loads and the placeholders
-     show. TO RECONNECT ALL VIDEOS: set the flag below to true.
+     VIDEOS HIDDEN on this page. The hero clips + the whole Work section
+     (and its nav links) are hidden via the "novideo" class below.
+     TO BRING VIDEOS BACK: set VIDEOS_ENABLED = true.
      ------------------------------------------------------------------- */
-  const VIDEOS_ENABLED = true;
-  if (VIDEOS_ENABLED) document.querySelectorAll("video[data-src]").forEach(v => { v.src = v.dataset.src; });
+  const VIDEOS_ENABLED = false;
+  if (VIDEOS_ENABLED) {
+    document.querySelectorAll("video[data-src]").forEach(v => { v.src = v.dataset.src; });
+  } else {
+    document.documentElement.classList.add("novideo");
+  }
 
   /* videos: hide filename label once loaded; desktop = hover to unmute, touch = tap to unmute */
   const canHover = window.matchMedia("(hover:hover)").matches;
