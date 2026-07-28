@@ -1,6 +1,9 @@
 # Original (uncompressed) video backups — do NOT deploy these
 clips_original/
 
+# Raw source clips (huge originals). Only the transcoded clips/sanshx-web/ ships.
+clips/sanshx/
+
 # Internal strategy doc — not part of the website (remove this line to track it)
 sanshx-website-brief.md
 
